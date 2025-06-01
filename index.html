@@ -48,7 +48,8 @@
   header p {
     margin-top: 8px;
     font-size: 1.2rem;
-    color: #cfd8dc;
+    color: #f5f0e6; /* Krem rengi */
+    font-weight: 600;
   }
   main {
     flex: 1;
@@ -63,7 +64,7 @@
   }
   .message-top {
     font-size: 1.5rem;
-    color: #fce4ec;
+    color: #f5f0e6; /* Krem rengi */
     margin-bottom: 20px;
     font-weight: 600;
     text-shadow: 0 0 5px #f48fb1;
@@ -139,11 +140,17 @@
   button#music-btn:hover {
     background: #64b5f6;
   }
+  /* Kalp renkleri beyaz yapıldı */
+  h1::after {
+    content: ' 💙';
+    color: white;
+    text-shadow: 0 0 5px #ffffff;
+  }
 </style>
 </head>
 <body>
 <header>
-  <h1>3. Ayımız Kutlu Olsun 💙</h1>
+  <h1>3. Ayımız Kutlu Olsun</h1>
   <p class="message-top">Minik sevgilim, hiç hayatımdan çıkma.</p>
 </header>
 <main>
