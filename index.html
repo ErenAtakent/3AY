@@ -22,6 +22,38 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    flex-direction: column;
+  }
+
+  /* Üst başlık alanı */
+  header {
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    margin-bottom: 30px;
+    user-select: none;
+  }
+  header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #c0d8ff;
+    text-shadow: 0 0 10px #a2c4ff;
+  }
+  header .subtitle {
+    margin-top: 6px;
+    font-size: 1rem;
+    color: #e3eefeaa;
+    font-style: italic;
+    letter-spacing: 2px;
+  }
+
+  /* Yıldız ve ay simgesi üstte */
+  header .stars-emoji {
+    font-size: 2.5rem;
+    margin-top: 10px;
+    text-shadow: 0 0 12px #fce1a1, 0 0 30px #fce1a1;
   }
 
   .stars {
@@ -84,7 +116,7 @@
     font-weight: 700;
     font-size: 1.1rem;
     margin-bottom: 8px;
-    color: #d6e6ff;
+    color: #d6e6ffcc;
   }
 
   .progress-container {
@@ -213,61 +245,35 @@
     .scrolling-text span {
       font-size: 1.3rem;
     }
+    header h2 {
+      font-size: 1.3rem;
+    }
+    header .subtitle {
+      font-size: 0.9rem;
+    }
+    header .stars-emoji {
+      font-size: 2rem;
+    }
   }
-
 </style>
 </head>
 <body>
 
 <div class="stars" aria-hidden="true"></div>
 
+<header role="banner" aria-label="Başlık alanı">
+  <h2>✨ 3. Ayımız Kutlu Olsun ✨</h2>
+  <div class="stars-emoji">🌙⭐️⭐️⭐️</div>
+  <div class="subtitle">Her gün seni daha çok seviyorum, iyi ki varsın ❤️</div>
+</header>
+
 <div class="container" role="main" aria-label="3. Ayımız Kutlu Olsun">
   <h1>3. Ayımız Kutlu Olsun 🤍</h1>
   <p>Beraberiz ve her gün daha da bağlanıyoruz, nice 3 aylarımıza bebeğim 🤍</p>
 
-  <div class="countdown" aria-live="polite" aria-atomic="true">
-    Gün sayacı: <span id="days">--</span> gün
+  <div class="countdown" aria-live="polite" aria-atomic="true" id="countdown">
+    Gün sayacı: -- gün -- saat -- dakika -- saniye
   </div>
 
   <div class="progress-label">6. Ay Hedefi</div>
-  <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
-    <div class="progress-bar" id="progress-bar">0%</div>
-  </div>
-
-  <button id="videoBtn" aria-label="Sürpriz video göster">Sürpriz Video 🎥</button>
-
-  <audio id="bgMusic" controls preload="auto" style="margin-top: 20px;">
-    <source src="https://cdn.jsdelivr.net/gh/erenatakent/3AY/music/CanOzan_BaktinOlmuyo.mp3" type="audio/mpeg" />
-    Tarayıcınız ses oynatmayı desteklemiyor.
-  </audio>
-</div>
-
-<div class="hearts" aria-hidden="true"></div>
-
-<div class="scrolling-text" aria-hidden="true">
-  <span>Seninle her gün daha da bağlanıyoruz... &nbsp; Seni seviyorum... &nbsp; 3. ayımız kutlu olsun, sevgilim... &nbsp;</span>
-</div>
-
-<script>
-  // Yıldızlar animasyonu
-  const starsContainer = document.querySelector('.stars');
-  const starCount = 80;
-  for(let i = 0; i < starCount; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    const size = Math.random() * 2 + 1;
-    star.style.width = size + 'px';
-    star.style.height = size + 'px';
-    star.style.top = (Math.random() * 100) + '%';
-    star.style.left = (Math.random() * 100) + '%';
-    star.style.animationDelay = (Math.random() * 3) + 's';
-    starsContainer.appendChild(star);
-  }
-
-  // Kalpler animasyonu
-  const heartsContainer = document.querySelector('.hearts');
-  function createHeart() {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.textContent = '❤️';
-    heart.style.left = Math.random() * 100 +
+  <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0
