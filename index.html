@@ -2,53 +2,51 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>3. Ayımız Kutlu Olsun</title>
+  <title>3. Ayımız Kutlu Olsun 🤍</title>
   <style>
-    html, body {
+    body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background: #000;
-      color: #fff;
+      background: black;
+      color: white;
       font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
     }
 
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: url('https://i.imgur.com/1t0GslV.jpg') repeat;
-      background-size: cover;
+      background: radial-gradient(#1a1a40, #000000);
       z-index: -2;
-      animation: stars 100s linear infinite;
     }
 
-    @keyframes stars {
-      from { background-position: 0 0; }
-      to { background-position: -10000px 10000px; }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
 
     h1 {
       text-align: center;
       margin-top: 20px;
-      font-size: 2.5rem;
-      text-shadow: 0 0 10px #f06292;
+      font-size: 2.5em;
+      text-shadow: 0 0 10px #90caf9;
     }
 
     .counter {
       text-align: center;
-      font-size: 1.2rem;
-      margin-top: 10px;
+      font-size: 1.2em;
+      margin: 10px 0;
     }
 
     .bar-container {
       width: 80%;
       height: 30px;
-      background-color: #333;
-      border-radius: 20px;
+      background-color: #222;
+      border-radius: 15px;
       margin: 20px auto;
-      overflow: hidden;
       box-shadow: 0 0 10px #2196f3;
     }
 
@@ -60,15 +58,14 @@
       line-height: 30px;
       color: #fff;
       font-weight: bold;
+      border-radius: 15px;
     }
 
     .message {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
       text-align: center;
-      color: #f5f5dc; /* krem */
-      font-size: 1.2rem;
+      color: #f5f5dc;
+      font-size: 1.3em;
+      margin-top: 30px;
       text-shadow: 0 0 5px #fff;
     }
 
@@ -89,6 +86,8 @@
   </style>
 </head>
 <body>
+  <canvas id="stars"></canvas>
+
   <h1>3. Ayımız Kutlu Olsun 🤍</h1>
 
   <div class="counter" id="timeCounter">Yükleniyor...</div>
@@ -104,18 +103,64 @@
   </audio>
 
   <script>
-    // Kalp oluşturma
+    // Yıldızlar
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createStars(count) {
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5,
+          speed: Math.random() * 0.5 + 0.2
+        });
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    resizeCanvas();
+    createStars(100);
+    drawStars();
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createStars(100);
+    });
+
+    // Kalpler
     setInterval(() => {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.style.left = Math.random() * window.innerWidth + 'px';
-      heart.textContent = '🤍';
-      heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "🤍";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (2 + Math.random() * 3) + "s";
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 5000);
     }, 300);
 
-    // Sayaç ve Yüzde Barı
+    // Sayaç ve Bar
     function updateCounter() {
       const startDate = new Date("2025-03-03T00:00:00");
       const now = new Date();
@@ -129,7 +174,7 @@
       document.getElementById('timeCounter').textContent =
         `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye`;
 
-      const targetDays = 183; // 6 ay ~183 gün
+      const targetDays = 183;
       const percent = Math.min((elapsed / (1000 * 60 * 60 * 24)) / targetDays * 100, 100);
       const display = percent.toFixed(2);
 
