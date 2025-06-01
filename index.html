@@ -6,6 +6,8 @@
 <title>3. Ayımız Kutlu Olsun</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+  /* Genel ayarlar */
   * {
     margin: 0; padding: 0; box-sizing: border-box;
   }
@@ -22,12 +24,12 @@
     position: relative;
   }
 
-  /* Yıldızlı arka plan animasyonu */
+  /* Yıldızlı arka plan */
   body::before {
     content: '';
     position: fixed;
     top:0; left:0; right:0; bottom:0;
-    background: transparent url('https://i.imgur.com/JzWzMjp.png') repeat;
+    background: url('https://i.imgur.com/JzWzMjp.png') repeat;
     background-size: contain;
     animation: starTwinkle 20s linear infinite;
     pointer-events: none;
@@ -39,7 +41,7 @@
   }
 
   header {
-    margin-top: 20px;
+    margin-top: 25px;
     text-align: center;
     z-index: 10;
   }
@@ -48,10 +50,14 @@
     color: #bbdefb;
     text-shadow: 0 0 8px #90caf9;
   }
+  header h1 .heart {
+    color: white;
+    text-shadow: 0 0 10px #fff;
+  }
   header p {
-    margin-top: 8px;
-    font-size: 1.2rem;
-    color: #f5f0e6; /* krem rengi */
+    margin-top: 10px;
+    font-size: 1.3rem;
+    color: #f5f0e6; /* Krem rengi */
     font-weight: 600;
   }
 
@@ -61,82 +67,67 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 10;
     width: 90vw;
     max-width: 500px;
     text-align: center;
+    z-index: 10;
   }
 
   #countdown {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     letter-spacing: 2px;
     color: #bbdefb;
     font-weight: 700;
     text-shadow: 0 0 10px #64b5f6;
     user-select: none;
+    margin-bottom: 35px;
   }
 
   .progress-container {
     width: 100%;
     background: rgba(255,255,255,0.1);
-    border-radius: 12px;
-    margin-top: 30px;
-    box-shadow: inset 0 0 8px #90caf9;
+    border-radius: 15px;
     height: 30px;
-    position: relative;
+    box-shadow: inset 0 0 8px #90caf9;
     overflow: hidden;
-  }
-  .progress-label {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    top: 5px;
-    font-weight: 700;
-    color: #e3f2fd;
-    text-shadow: 0 0 5px #2196f3;
-    pointer-events: none;
-    font-size: 1rem;
-    user-select: none;
+    margin-bottom: 30px;
+    position: relative;
   }
   #progress-bar {
     height: 100%;
     width: 0%;
     background: linear-gradient(90deg, #64b5f6, #2196f3);
-    border-radius: 12px 0 0 12px;
+    border-radius: 15px 0 0 15px;
     transition: width 1s ease-in-out;
-    color: #0d47a1;
+  }
+  .progress-label {
+    position: absolute;
+    width: 100%;
+    top: 4px;
+    text-align: center;
     font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-shadow: none;
+    color: #e3f2fd;
+    text-shadow: 0 0 5px #2196f3;
+    pointer-events: none;
+    font-size: 1rem;
   }
 
-  .message-top {
-    font-size: 1.5rem;
-    color: #f5f0e6; /* krem rengi */
-    margin-bottom: 20px;
-    font-weight: 600;
-    text-shadow: 0 0 5px #f48fb1;
-  }
   .message-bottom {
-    margin-top: 20px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #bbdefb;
     font-style: italic;
-    text-shadow: 0 0 3px #64b5f6;
+    text-shadow: 0 0 5px #64b5f6;
+    user-select: none;
   }
-
-  /* Kalpler beyaz */
-  .heart {
+  .message-bottom .heart {
     color: white;
-    text-shadow: 0 0 6px #fff;
+    text-shadow: 0 0 10px #fff;
   }
 
   /* Buton */
   button#music-btn {
     margin-top: 40px;
-    padding: 12px 25px;
+    padding: 12px 30px;
     border: none;
     border-radius: 25px;
     background: #2196f3;
@@ -156,7 +147,7 @@
   /* Kayan yazı */
   .scroll-text {
     position: fixed;
-    bottom: 10px;
+    bottom: 15px;
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -184,13 +175,13 @@
 <body>
 <header>
   <h1>3. Ayımız Kutlu Olsun <span class="heart">🤍</span></h1>
-  <p class="message-top">Minik sevgilim, hiç hayatımdan çıkma.</p>
+  <p>Hiç hayatımdan çıkma.</p>
 </header>
 <main>
   <div id="countdown">Yükleniyor...</div>
 
   <div class="progress-container" aria-label="İlerleme çubuğu">
-    <div id="progress-bar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">0%</div>
+    <div id="progress-bar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
     <div class="progress-label">6. Ay Hedefi</div>
   </div>
 
@@ -209,22 +200,19 @@
 
 <script>
   const countdownEl = document.getElementById('countdown');
+  const progressBar = document.getElementById('progress-bar');
   const startDate = new Date('2025-03-03T00:00:00');
   const endDate = new Date('2025-09-03T00:00:00');
-  const progressBar = document.getElementById('progress-bar');
 
   function updateCountdown() {
     const now = new Date();
     let diff = now - startDate;
-    if (diff < 0) diff = 0;
+    if(diff < 0) diff = 0;
 
-    let seconds = Math.floor(diff / 1000);
-    const days = Math.floor(seconds / (3600 * 24));
-    seconds -= days * 3600 * 24;
-    const hours = Math.floor(seconds / 3600);
-    seconds -= hours * 3600;
-    const minutes = Math.floor(seconds / 60);
-    seconds -= minutes * 60;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
     countdownEl.textContent = `${days} gün ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
   }
@@ -233,4 +221,36 @@
     const now = new Date();
     const totalDuration = endDate - startDate;
     const passedDuration = now - startDate;
-    let progressPercent = (passedDuration / totalDuration) * 100
+    let progressPercent = (passedDuration / totalDuration) * 100;
+
+    if(progressPercent > 100) progressPercent = 100;
+    if(progressPercent < 0) progressPercent = 0;
+
+    progressBar.style.width = progressPercent + '%';
+    progressBar.setAttribute('aria-valuenow', progressPercent.toFixed(1));
+  }
+
+  function updateAll() {
+    updateCountdown();
+    updateProgressBar();
+  }
+
+  setInterval(updateAll, 1000);
+  updateAll();
+
+  // Müzik butonu
+  const musicBtn = document.getElementById('music-btn');
+  const music = document.getElementById('music');
+
+  musicBtn.addEventListener('click', () => {
+    if(music.paused) {
+      music.play();
+      musicBtn.textContent = 'Müziği Durdur';
+    } else {
+      music.pause();
+      musicBtn.textContent = 'Müziği Çal';
+    }
+  });
+</script>
+</body>
+</html>
