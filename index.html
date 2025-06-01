@@ -256,4 +256,24 @@
       progressBar.parentElement.setAttribute('aria-valuenow', 0);
       return;
     }
-   
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    countdownEl.textContent = days;
+
+    // 6 ay hedefi: 180 gün
+    const progress = Math.min(100, (days / 180) * 100);
+    progressBar.style.width = progress + '%';
+    progressBar.textContent = Math.floor(progress) + '%';
+    progressBar.parentElement.setAttribute('aria-valuenow', Math.floor(progress));
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000 * 60 * 60); // Saatte bir güncelle
+
+  // Sürpriz video butonu
+  document.getElementById('videoBtn').addEventListener('click', () => {
+    window.open('https://cdn.jsdelivr.net/gh/erenatakent/3AY/video/surpriz.mp4', '_blank');
+  });
+</script>
+
+</body>
+</html>
