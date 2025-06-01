@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3. Ayımız Kutlu Olsun 💙</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      background: #103b6b;
+      color: #e0f7fa;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    canvas#stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      display: block;
+      background: #103b6b;
+    }
+
+    h1 {
+      font-size: 3.2em;
+      margin-bottom: 0.2em;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      z-index: 1;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-top: 0;
+      margin-bottom: 1.5em;
+      max-width: 500px;
+      color: #bbdefb;
+      white-space: pre-line;
+      z-index: 1;
+    }
+
+    #clock {
+      font-size: 2em;
+      font-weight: 700;
+      color: #cce7ff;
+      text-shadow: 0 0 8px #b3d7ff;
+      margin-bottom: 2em;
+      white-space: pre-line;
+      z-index: 1;
+    }
+
+    #progress-label {
+      font-weight: 700;
+      color: #a9c9ff;
+      margin-bottom: 6px;
+      font-size: 1.1em;
+      text-shadow: 0 0 5px #5d87c7;
+      z-index: 1;
+    }
+
+    #progress-container {
+      width: 80%;
+      max-width: 400px;
+      background: #335a8a;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 0 auto 15px auto;
+      box-shadow: 0 0 10px rgba(102, 170, 255, 0.7);
+      z-index: 1;
+      position: relative;
+      height: 30px;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #66aaff;
+      border-radius: 20px;
+      transition: width 0.5s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #103b6b;
+      font-weight: 700;
+      font-size: 1.1em;
+      user-select: none;
+      box-shadow: 0 0 6px #66aaff;
+    }
+
+    #videoBtn {
+      background-color: #66aaff;
+      border: none;
+      color: white;
+      padding: 14px 24px;
+      font-size: 1.2em;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #66aaff;
+      margin-top: 15px;
+      transition: background-color 0.3s ease;
+      z-index: 1;
+    }
+
+    #videoBtn:hover {
+      background-color: #4a8ae0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="stars"></canvas>
+
+  <h1>3. Ayımız Kutlu Olsun 💙</h1>
+  <p>
+    seninle hergün daha da bağlanıyoruz<br>
+    nice 3 aylarımıza bebeğim 🤍<br>
+    <strong>Beraberiz 💙</strong>
+  </p>
+
+  <div id="clock">Loading...</div>
+
+  <div id="progress-label">6. Ay Hedefi</div>
+  <div id="progress-container">
+    <div id="progress-bar">0%</div>
+  </div>
+
+  <button id="videoBtn">Sürpriz Video</button>
+
+  <audio id="bgMusic" src="https://cdn.jsdelivr.net/gh/erenelcin/baktinolmuyo-can-ozan/BaktinOlmuyo-CanOzan.mp3"
+    preload="auto" loop></audio>
+
+  <script>
+    // Yıldız animasyonu
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let stars = [];
+
+    function initCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      stars = [];
+      for (let i = 0; i < 150; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.3 + 0.3,
+          alpha: Math.random(),
+          dAlpha: (Math.random() * 0.02) + 0.005
+        });
+      }
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, width, height);
+      stars.forEach(star => {
+        star.alpha += star.dAlpha;
+        if (star.alpha > 1 || star.alpha < 0) star.dAlpha = -star.dAlpha;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(drawStars);
+    }
+    window.addEventListener('resize', () => {
+      initCanvas();
+    });
+    initCanvas();
+    drawStars();
+
+    // Sayaç
+    const startDate = new Date('2025-03-03T00:00:00');
+    const clock = document.getElementById('clock');
+
+    function updateClock() {
+      const now = new Date();
+      const diff = now - startDate;
+      if (diff < 0) {
+        clock.textContent = "Başlamadı";
+        return;
+      }
+      const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      clock.textContent =
+        `${totalDays} gün\n${hours} saat ${minutes} dakika ${seconds} saniye`;
+
+      // Progress bar % hesapla (6 ay = 182 gün varsay)
+      const targetDays = 182;
+      let progress = (totalDays / targetDays) * 100;
+      if (progress > 100) progress = 100;
+      const progressBar = document.getElementById('progress-bar');
+      progressBar.style.width = progress.toFixed(2) + '%';
+      progressBar.textContent = progress.toFixed(2) + '%';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Buton ve video açma
+    const videoBtn = document.getElementById('videoBtn');
+    videoBtn.addEventListener('click', () => {
+      // Yeni video linki
+      window.open('https://youtu.be/nX5FL4rSU08', '_blank');
+    });
+
+    // Müzik kontrolü: Otomatik başlatma çoğu tarayıcıda engelleniyor.
+    const bgMusic = document.getElementById('bgMusic');
+    // Sayfa yüklendiğinde müziği çalmak için tıklama isteği ekle:
+    document.body.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+      }
+    }, {once: true});
+  </script>
+</body>
+
+</html>
