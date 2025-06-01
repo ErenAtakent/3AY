@@ -1,246 +1,266 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>3. Ayımız Kutlu Olsun 💙</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>3. Ayımız Kutlu Olsun</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
 
-    * {
-      box-sizing: border-box;
+  /* Temel stil ve mavi palet */
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #a0c8ff, #4a90e2);
+    overflow-x: hidden;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Yıldız animasyonu arkaplan */
+  .stars {
+    position: fixed;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    background: transparent;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 4s infinite alternate;
+  }
+  @keyframes twinkle {
+    from {opacity: 0.8;}
+    to {opacity: 0.1;}
+  }
+
+  /* Ana kutlama alanı */
+  .container {
+    position: relative;
+    z-index: 10;
+    background: rgba(255 255 255 / 0.1);
+    padding: 30px 50px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(255 255 255 / 0.3);
+    max-width: 450px;
+    text-align: center;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 2.7rem;
+    margin: 0 0 15px;
+    text-shadow: 0 0 8px #fff;
+  }
+
+  p {
+    font-weight: 300;
+    font-size: 1.15rem;
+    margin: 0 0 30px;
+    text-shadow: 0 0 6px #00000055;
+  }
+
+  /* Sayaç */
+  .countdown {
+    font-weight: 600;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 8px #2f5493;
+  }
+
+  /* İlerleme çubuğu */
+  .progress-container {
+    background: rgba(255 255 255 / 0.3);
+    border-radius: 50px;
+    overflow: hidden;
+    height: 24px;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    background: #004a99;
+    height: 100%;
+    width: 0;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: center;
+    transition: width 0.7s ease-in-out;
+  }
+  .progress-label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    text-shadow: 0 0 4px #00000066;
+  }
+
+  /* Buton */
+  button {
+    background: #0071e3;
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 13px 30px;
+    font-size: 1.1rem;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgb(0 113 227 / 0.4);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  button:hover {
+    background: #005bb5;
+    transform: scale(1.05);
+  }
+
+  /* Kalp animasyonları */
+  .hearts {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    width: 100%;
+    height: 150px;
+    pointer-events: none;
+    overflow: visible;
+    transform: translateX(-50%);
+    z-index: 5;
+  }
+  .heart {
+    position: absolute;
+    font-size: 1.7rem;
+    color: #ff4d6d;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.85;
+  }
+  @keyframes floatUp {
+    0% {
+      bottom: 0;
+      opacity: 0.85;
+      transform: translateX(0) scale(1);
     }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Nunito', sans-serif;
-      background: #103b6b;
-      color: #e0f7fa;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
-      position: relative;
+    100% {
+      bottom: 160px;
       opacity: 0;
-      animation: fadeIn 2s forwards;
+      transform: translateX(20px) scale(1.4);
     }
+  }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+  /* Responsive */
+  @media (max-width: 480px) {
+    .container {
+      padding: 25px 20px;
+      max-width: 90vw;
     }
-
-    canvas#stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      display: block;
-      background: #103b6b;
-    }
-
     h1 {
-      font-size: 3.2em;
-      margin-bottom: 0.2em;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      z-index: 1;
+      font-size: 2rem;
     }
-
-    p {
-      font-size: 1.2em;
-      margin-top: 0;
-      margin-bottom: 1.5em;
-      max-width: 500px;
-      color: #bbdefb;
-      white-space: pre-line;
-      z-index: 1;
+    .countdown {
+      font-size: 1.3rem;
     }
-
-    #clock {
-      font-size: 2em;
-      font-weight: 700;
-      color: #cce7ff;
-      text-shadow: 0 0 8px #b3d7ff;
-      margin-bottom: 2em;
-      white-space: pre-line;
-      z-index: 1;
+    button {
+      padding: 11px 24px;
+      font-size: 1rem;
     }
-
-    #progress-label {
-      font-weight: 700;
-      color: #a9c9ff;
-      margin-bottom: 6px;
-      font-size: 1.1em;
-      text-shadow: 0 0 5px #5d87c7;
-      z-index: 1;
-    }
-
-    #progress-container {
-      width: 80%;
-      max-width: 400px;
-      background: #335a8a;
-      border-radius: 20px;
-      overflow: hidden;
-      margin: 0 auto 15px auto;
-      box-shadow: 0 0 10px rgba(102, 170, 255, 0.7);
-      z-index: 1;
-      position: relative;
-      height: 30px;
-    }
-
-    #progress-bar {
-      height: 100%;
-      width: 0%;
-      background: #66aaff;
-      border-radius: 20px;
-      transition: width 0.5s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #103b6b;
-      font-weight: 700;
-      font-size: 1.1em;
-      user-select: none;
-      box-shadow: 0 0 6px #66aaff;
-    }
-
-    #videoBtn {
-      background-color: #66aaff;
-      border: none;
-      color: white;
-      padding: 14px 24px;
-      font-size: 1.2em;
-      font-weight: 700;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #66aaff;
-      margin-top: 15px;
-      transition: background-color 0.3s ease;
-      z-index: 1;
-    }
-
-    #videoBtn:hover {
-      background-color: #4a8ae0;
-    }
-  </style>
+  }
+</style>
 </head>
-
 <body>
-  <canvas id="stars"></canvas>
 
-  <h1>3. Ayımız Kutlu Olsun 💙</h1>
-  <p>
-    seninle hergün daha da bağlanıyoruz<br>
-    nice 3 aylarımıza bebeğim 🤍<br>
-    <strong>Beraberiz 💙</strong>
-  </p>
+<div class="stars" aria-hidden="true"></div>
 
-  <div id="clock">Loading...</div>
+<div class="container" role="main" aria-label="3. ay kutlama mesajı">
+  <h1>3. Ayımız Kutlu Olsun 🤍</h1>
+  <p>Beraberiz ve her gün daha da bağlanıyoruz, nice 3 aylarımıza bebeğim 🤍</p>
 
-  <div id="progress-label">6. Ay Hedefi</div>
-  <div id="progress-container">
-    <div id="progress-bar">0%</div>
+  <div class="countdown" aria-live="polite" aria-atomic="true">
+    Gün sayacı: <span id="days">--</span> gün
   </div>
 
-  <button id="videoBtn">Sürpriz Video</button>
+  <div class="progress-label">6. Ay Hedefi</div>
+  <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+    <div class="progress-bar" id="progress-bar">0%</div>
+  </div>
 
-  <audio id="bgMusic" src="https://cdn.jsdelivr.net/gh/erenelcin/baktinolmuyo-can-ozan/BaktinOlmuyo-CanOzan.mp3"
-    preload="auto" loop></audio>
+  <button id="videoBtn" aria-label="Sürpriz video göster">Sürpriz Video 🎥</button>
+  <audio id="bgMusic" controls preload="auto" style="margin-top:20px;">
+    <source src="https://cdn.jsdelivr.net/gh/erenatakent/3AY/music/CanOzan_BaktinOlmuyo.mp3" type="audio/mpeg">
+    Tarayıcınız ses oynatmayı desteklemiyor.
+  </audio>
+</div>
 
-  <script>
-    // Yıldız animasyonu
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let stars = [];
+<div class="hearts" aria-hidden="true"></div>
 
-    function initCanvas() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-      stars = [];
-      for (let i = 0; i < 150; i++) {
-        stars.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          radius: Math.random() * 1.3 + 0.3,
-          alpha: Math.random(),
-          dAlpha: (Math.random() * 0.02) + 0.005
-        });
-      }
+<script>
+  // Yıldızları oluştur
+  const starsContainer = document.querySelector('.stars');
+  const starCount = 80;
+  for(let i=0; i<starCount; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    const size = Math.random() * 2 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.top = (Math.random() * 100) + '%';
+    star.style.left = (Math.random() * 100) + '%';
+    star.style.animationDelay = (Math.random() * 4) + 's';
+    starsContainer.appendChild(star);
+  }
+
+  // Kalp animasyonları
+  const heartsContainer = document.querySelector('.hearts');
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.textContent = '❤️';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+    heartsContainer.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }
+  setInterval(createHeart, 800);
+
+  // Sayaç için tarih (başlangıç 3 Mart 2025)
+  const startDate = new Date('2025-03-03T00:00:00');
+  const countdownEl = document.getElementById('days');
+  const progressBar = document.getElementById('progress-bar');
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = now - startDate; // ms fark
+    if(diff < 0) {
+      countdownEl.textContent = '0';
+      progressBar.style.width = '0%';
+      progressBar.textContent = '0%';
+      return;
     }
-    function drawStars() {
-      ctx.clearRect(0, 0, width, height);
-      stars.forEach(star => {
-        star.alpha += star.dAlpha;
-        if (star.alpha > 1 || star.alpha < 0) star.dAlpha = -star.dAlpha;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
-        ctx.fill();
-      });
-      requestAnimationFrame(drawStars);
-    }
-    window.addEventListener('resize', () => {
-      initCanvas();
-    });
-    initCanvas();
-    drawStars();
+    const daysPassed = Math.floor(diff / (1000*60*60*24));
+    countdownEl.textContent = daysPassed;
 
-    // Sayaç
-    const startDate = new Date('2025-03-03T00:00:00');
-    const clock = document.getElementById('clock');
+    // 6 ay hedefi için 180 gün varsayalım
+    const targetDays = 180;
+    let percent = (daysPassed / targetDays) * 100;
+    if(percent > 100) percent = 100;
+    progressBar.style.width = percent.toFixed(2) + '%';
+    progressBar.textContent = percent.toFixed(2) + '%';
+    progressBar.parentElement.setAttribute('aria-valuenow', percent.toFixed(2));
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
 
-    function updateClock() {
-      const now = new Date();
-      const diff = now - startDate;
-      if (diff < 0) {
-        clock.textContent = "Başlamadı";
-        return;
-      }
-      const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      clock.textContent =
-        `${totalDays} gün\n${hours} saat ${minutes} dakika ${seconds} saniye`;
+  // Video butonu (yeni pencerede açılır)
+  const videoBtn = document.getElementById('videoBtn');
+  videoBtn.addEventListener('click', () => {
+    window.open('https://youtu.be/nX5FL4rSU08', '_blank', 'width=800,height=450');
+  });
+</script>
 
-      // Progress bar % hesapla (6 ay = 182 gün varsay)
-      const targetDays = 182;
-      let progress = (totalDays / targetDays) * 100;
-      if (progress > 100) progress = 100;
-      const progressBar = document.getElementById('progress-bar');
-      progressBar.style.width = progress.toFixed(2) + '%';
-      progressBar.textContent = progress.toFixed(2) + '%';
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Buton ve video açma
-    const videoBtn = document.getElementById('videoBtn');
-    videoBtn.addEventListener('click', () => {
-      // Yeni video linki
-      window.open('https://youtu.be/nX5FL4rSU08', '_blank');
-    });
-
-    // Müzik kontrolü: Otomatik başlatma çoğu tarayıcıda engelleniyor.
-    const bgMusic = document.getElementById('bgMusic');
-    // Sayfa yüklendiğinde müziği çalmak için tıklama isteği ekle:
-    document.body.addEventListener('click', () => {
-      if (bgMusic.paused) {
-        bgMusic.play();
-      }
-    }, {once: true});
-  </script>
 </body>
-
 </html>
