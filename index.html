@@ -1,638 +1,144 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>3. Ayımız Kutlu Olsun</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #80b7f0, #1c4587);
-    color: white;
-    overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    flex-direction: column;
-  }
-
-  /* Üst başlık alanı */
-  header {
-    width: 100%;
-    max-width: 450px;
-    text-align: center;
-    margin-bottom: 20px;
-    user-select: none;
-    position: relative;
-    z-index: 10;
-  }
-  header h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    color: #c0d8ff;
-    text-shadow: 0 0 10px #a2c4ff;
-  }
-  header .message {
-    margin-top: 8px;
-    font-size: 1.1rem;
-    color: #ffd4d4cc;
-    font-weight: 600;
-    font-style: italic;
-    letter-spacing: 1.5px;
-    text-shadow: 0 0 8px #ff5c79;
-  }
-
-  /* Yıldız ve ay simgesi üstte */
-  header .stars-emoji {
-    font-size: 2.5rem;
-    margin-top: 10px;
-    text-shadow: 0 0 12px #fce1a1, 0 0 30px #fce1a1;
-  }
-
-  .stars {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.7;
-    animation: twinkle 3s infinite alternate;
-  }
-
-  @keyframes twinkle {
-    from {opacity: 0.7;}
-    to {opacity: 0.1;}
-  }
-
-  .container {
-    position: relative;
-    z-index: 5;
-    background: rgba(255 255 255 / 0.12);
-    border-radius: 18px;
-    padding: 30px 40px;
-    max-width: 450px;
-    width: 100%;
-    box-shadow: 0 0 12px rgba(255 255 255 / 0.25);
-    text-align: center;
-  }
-
-  h1 {
-    margin: 0 0 15px;
-    font-weight: 700;
-    font-size: 2.4rem;
-    text-shadow: 0 0 10px #cbe0ff;
-  }
-
-  p {
-    margin: 0 0 28px;
-    font-weight: 400;
-    font-size: 1.2rem;
-    line-height: 1.4;
-    text-shadow: 0 0 6px #003d7a;
-  }
-
-  .countdown {
-    font-weight: 700;
-    font-size: 1.5rem;
-    margin-bottom: 25px;
-    text-shadow: 0 0 10px #002d6e;
-  }
-
-  .progress-label {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    color: #d6e6ffcc;
-  }
-
-  .progress-container {
-    background: rgba(255 255 255 / 0.25);
-    border-radius: 40px;
-    height: 28px;
-    margin-bottom: 30px;
-    overflow: hidden;
-  }
-
-  .progress-bar {
-    background: #1c4587;
-    height: 100%;
-    width: 0%;
-    color: white;
-    font-weight: 700;
-    line-height: 28px;
-    text-align: center;
-    transition: width 0.8s ease;
-    user-select: none;
-  }
-
-  button {
-    background: #3a75e8;
-    border: none;
-    padding: 13px 38px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 6px 10px rgb(58 117 232 / 0.5);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  button:hover {
-    background-color: #285cc2;
-    transform: scale(1.05);
-  }
-
-  audio {
-    margin-top: 20px;
-    width: 100%;
-    border-radius: 8px;
-  }
-
-  /* Hearts falling animation üstte */
-  .hearts {
-    position: fixed;
-    top: 50px;  /* Üstte, başlıktan hemen sonra */
-    left: 50%;
-    width: 100%;
-    height: 150px;
-    pointer-events: none;
-    overflow: visible;
-    transform: translateX(-50%);
-    z-index: 9;
-  }
-  .heart {
-    position: absolute;
-    font-size: 1.8rem;
-    color: #ff5c79;
-    animation: floatUp 6s linear infinite;
-    opacity: 0.85;
-    user-select: none;
-  }
-  @keyframes floatUp {
-    0% {
-      top: 140px;
-      opacity: 0.85;
-      transform: translateX(0) scale(1);
+  <meta charset="UTF-8">
+  <title>3. Ayımız Kutlu Olsun</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
     }
-    100% {
-      top: -20px;
-      opacity: 0;
-      transform: translateX(20px) scale(1.4);
-    }
-  }
 
-  /* Romantic scrolling text - kaldırdım çünkü istemedin */
-
-  /* Responsive adjustments */
-  @media (max-width: 480px) {
-    .container {
-      padding: 25px 20px;
-      max-width: 90vw;
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://i.imgur.com/1t0GslV.jpg') repeat;
+      background-size: cover;
+      z-index: -2;
+      animation: stars 100s linear infinite;
     }
+
+    @keyframes stars {
+      from { background-position: 0 0; }
+      to { background-position: -10000px 10000px; }
+    }
+
     h1 {
-      font-size: 2rem;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #f06292;
     }
-    p {
-      font-size: 1.1rem;
+
+    .counter {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 10px;
     }
-    .countdown {
-      font-size: 1.3rem;
+
+    .bar-container {
+      width: 80%;
+      height: 30px;
+      background-color: #333;
+      border-radius: 20px;
+      margin: 20px auto;
+      overflow: hidden;
+      box-shadow: 0 0 10px #2196f3;
     }
-    button {
-      padding: 12px 30px;
-      font-size: 1rem;
+
+    .bar {
+      height: 100%;
+      background-color: #2196f3;
+      width: 0%;
+      text-align: center;
+      line-height: 30px;
+      color: #fff;
+      font-weight: bold;
     }
-    header h2 {
-      font-size: 1.3rem;
+
+    .message {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      color: #f5f5dc; /* krem */
+      font-size: 1.2rem;
+      text-shadow: 0 0 5px #fff;
     }
-    header .message {
-      font-size: 1rem;
+
+    .heart {
+      position: absolute;
+      top: -20px;
+      color: white;
+      font-size: 20px;
+      animation: fall linear infinite;
     }
-    header .stars-emoji {
-      font-size: 2rem;
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
     }
-  }
-</style>
+  </style>
 </head>
 <body>
-
-<div class="stars" aria-hidden="true"></div>
-
-<header role="banner" aria-label="Başlık alanı">
-  <h2>✨ 3. Ayımız Kutlu Olsun ✨</h2>
-  <div class="stars-emoji">🌙⭐️⭐️⭐️</div>
-  <div class="message">Hiç hayatımdan çıkma minik sevgilim - seni çok seviyorum ❤️</div>
-</header>
-
-<div class="hearts" aria-hidden="true">
-  <!-- Kalpler JavaScript ile oluşturulacak -->
-</div>
-
-<div class="container" role="main" aria-label="3. Ayımız Kutlu Olsun">
   <h1>3. Ayımız Kutlu Olsun 🤍</h1>
-  <p>Beraberiz ve her gün daha da bağlanıyoruz, nice 3 aylarımıza bebeğim 🤍</p>
 
-  <div class="countdown" aria-live="polite" aria-atomic="true" id="countdown">
-    Gün sayacı: -- gün -- saat -- dakika -- saniye
+  <div class="counter" id="timeCounter">Yükleniyor...</div>
+
+  <div class="bar-container">
+    <div class="bar" id="progressBar">0%</div>
   </div>
 
-  <div class="progress-label">6. Ay Hedefi</div>
-  <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-    <div class="progress-bar" id="progress-bar" style="width: 0%;">0%</div>
-  </div>
+  <div class="message">Hiç hayatımdan çıkma minik sevgilim - seni çok seviyorum</div>
 
-  <button id="surpriseBtn" aria-label="Sürpriz Video Butonu">Sürpriz Video</button>
-
-  <audio id="bgMusic" controls autoplay loop>
-    <source src="https://cdn.jsdelivr.net/gh/erenhacioglu/music-cdn/Can%20Ozan%20-%20Bakt%C4%B1n%20Olmuyo.mp3" type="audio/mpeg" />
-    Tarayıcınız audio elementini desteklemiyor.
+  <audio autoplay loop>
+    <source src="https://cdn.jsdelivr.net/gh/erenatakent/mp3s/CanOzan_BaktinOlmuyo.mp3" type="audio/mpeg">
   </audio>
-</div>
 
-<script>
-  // Yıldızları oluştur (50 tane)
-  const starsContainer = document.querySelector('.stars');
-  for(let i=0; i<50; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    star.style.width = star.style.height = (Math.random()*2 + 1) + 'px';
-    star.style.top = Math.random()*100 + '%';
-    star.style.left = Math.random()*100 + '%';
-    star.style.animationDuration = (2 + Math.random()*3) + 's';
-    starsContainer.appendChild(star);
-  }
+  <script>
+    // Kalp oluşturma
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.textContent = '🤍';
+      heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, 300);
 
-  // Kalpleri oluştur (15 tane)
-  const heartsContainer = document.querySelector('.hearts');
-  for(let i=0; i<15; i++) {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.textContent = '❤️';
-    heart.style.left = (Math.random()*100) + '%';
-    heart.style.animationDelay = (i * 0.4) + 's';
-    heart.style.fontSize = (12 + Math.random()*12) + 'px';
-    heartsContainer.appendChild(heart);
-  }
+    // Sayaç ve Yüzde Barı
+    function updateCounter() {
+      const startDate = new Date("2025-03-03T00:00:00");
+      const now = new Date();
+      const elapsed = now - startDate;
 
-  // Sayaç fonksiyonu
-  // Başlangıç tarihini ayarlıyoruz: 3Aynen kanka, kodu tam toparlamadan göndermişim, kusura bakma! Hemen düzgün çalışan, saati sayan, mesajı üstte gösteren ve kalplerin yukarı süzüldüğü tam halini veriyorum.
+      const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((elapsed / (1000 * 60)) % 60);
+      const seconds = Math.floor((elapsed / 1000) % 60);
 
-**Tam ve sorunsuz çalışan tam HTML burada:**
+      document.getElementById('timeCounter').textContent =
+        `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye`;
 
-```html
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>3. Ayımız Kutlu Olsun</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+      const targetDays = 183; // 6 ay ~183 gün
+      const percent = Math.min((elapsed / (1000 * 60 * 60 * 24)) / targetDays * 100, 100);
+      const display = percent.toFixed(2);
 
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #80b7f0, #1c4587);
-    color: white;
-    overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    flex-direction: column;
-  }
-
-  header {
-    width: 100%;
-    max-width: 450px;
-    text-align: center;
-    margin-bottom: 20px;
-    user-select: none;
-    position: relative;
-    z-index: 10;
-  }
-  header h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    color: #c0d8ff;
-    text-shadow: 0 0 10px #a2c4ff;
-  }
-  header .message {
-    margin-top: 8px;
-    font-size: 1.1rem;
-    color: #ffd4d4cc;
-    font-weight: 600;
-    font-style: italic;
-    letter-spacing: 1.5px;
-    text-shadow: 0 0 8px #ff5c79;
-  }
-
-  header .stars-emoji {
-    font-size: 2.5rem;
-    margin-top: 10px;
-    text-shadow: 0 0 12px #fce1a1, 0 0 30px #fce1a1;
-  }
-
-  .stars {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.7;
-    animation: twinkle 3s infinite alternate;
-  }
-
-  @keyframes twinkle {
-    from {opacity: 0.7;}
-    to {opacity: 0.1;}
-  }
-
-  .container {
-    position: relative;
-    z-index: 5;
-    background: rgba(255 255 255 / 0.12);
-    border-radius: 18px;
-    padding: 30px 40px;
-    max-width: 450px;
-    width: 100%;
-    box-shadow: 0 0 12px rgba(255 255 255 / 0.25);
-    text-align: center;
-  }
-
-  h1 {
-    margin: 0 0 15px;
-    font-weight: 700;
-    font-size: 2.4rem;
-    text-shadow: 0 0 10px #cbe0ff;
-  }
-
-  p {
-    margin: 0 0 28px;
-    font-weight: 400;
-    font-size: 1.2rem;
-    line-height: 1.4;
-    text-shadow: 0 0 6px #003d7a;
-  }
-
-  .countdown {
-    font-weight: 700;
-    font-size: 1.5rem;
-    margin-bottom: 25px;
-    text-shadow: 0 0 10px #002d6e;
-  }
-
-  .progress-label {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    color: #d6e6ffcc;
-  }
-
-  .progress-container {
-    background: rgba(255 255 255 / 0.25);
-    border-radius: 40px;
-    height: 28px;
-    margin-bottom: 30px;
-    overflow: hidden;
-  }
-
-  .progress-bar {
-    background: #1c4587;
-    height: 100%;
-    width: 0%;
-    color: white;
-    font-weight: 700;
-    line-height: 28px;
-    text-align: center;
-    transition: width 0.8s ease;
-    user-select: none;
-  }
-
-  button {
-    background: #3a75e8;
-    border: none;
-    padding: 13px 38px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 6px 10px rgb(58 117 232 / 0.5);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  button:hover {
-    background-color: #285cc2;
-    transform: scale(1.05);
-  }
-
-  audio {
-    margin-top: 20px;
-    width: 100%;
-    border-radius: 8px;
-  }
-
-  .hearts {
-    position: fixed;
-    top: 70px;  /* Başlığın hemen altında */
-    left: 50%;
-    width: 100%;
-    height: 150px;
-    pointer-events: none;
-    overflow: visible;
-    transform: translateX(-50%);
-    z-index: 9;
-  }
-  .heart {
-    position: absolute;
-    font-size: 1.8rem;
-    color: #ff5c79;
-    animation: floatUp 6s linear infinite;
-    opacity: 0.85;
-    user-select: none;
-  }
-  @keyframes floatUp {
-    0% {
-      top: 140px;
-      opacity: 0.85;
-      transform: translateX(0) scale(1);
+      const bar = document.getElementById('progressBar');
+      bar.style.width = display + '%';
+      bar.textContent = `6. Ay Hedefi — %${display}`;
     }
-    100% {
-      top: -20px;
-      opacity: 0;
-      transform: translateX(20px) scale(1.4);
-    }
-  }
 
-  @media (max-width: 480px) {
-    .container {
-      padding: 25px 20px;
-      max-width: 90vw;
-    }
-    h1 {
-      font-size: 2rem;
-    }
-    p {
-      font-size: 1.1rem;
-    }
-    .countdown {
-      font-size: 1.3rem;
-    }
-    button {
-      padding: 12px 30px;
-      font-size: 1rem;
-    }
-    header h2 {
-      font-size: 1.3rem;
-    }
-    header .message {
-      font-size: 1rem;
-    }
-    header .stars-emoji {
-      font-size: 2rem;
-    }
-  }
-</style>
-</head>
-<body>
-
-<div class="stars" aria-hidden="true"></div>
-
-<header role="banner" aria-label="Başlık alanı">
-  <h2>✨ 3. Ayımız Kutlu Olsun ✨</h2>
-  <div class="stars-emoji">🌙⭐️⭐️⭐️</div>
-  <div class="message">Hiç hayatımdan çıkma minik sevgilim - seni çok seviyorum ❤️</div>
-</header>
-
-<div class="hearts" aria-hidden="true"></div>
-
-<div class="container" role="main" aria-label="3. Ayımız Kutlu Olsun">
-  <h1>3. Ayımız Kutlu Olsun 🤍</h1>
-  <p>Beraberiz ve her gün daha da bağlanıyoruz, nice 3 aylarımıza bebeğim 🤍</p>
-
-  <div class="countdown" aria-live="polite" aria-atomic="true" id="countdown">
-    Gün sayacı: -- gün -- saat -- dakika -- saniye
-  </div>
-
-  <div class="progress-label">6. Ay Hedefi</div>
-  <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-    <div class="progress-bar" id="progress-bar" style="width: 0%;">0%</div>
-  </div>
-
-  <button id="surpriseBtn" aria-label="Sürpriz Video Butonu">Sürpriz Video</button>
-
-  <audio id="bgMusic" controls autoplay loop>
-    <source src="https://cdn.jsdelivr.net/gh/erenhacioglu/music-cdn/Can%20Ozan%20-%20Bakt%C4%B1n%20Olmuyo.mp3" type="audio/mpeg" />
-    Tarayıcınız audio elementini desteklemiyor.
-  </audio>
-</div>
-
-<script>
-  // Yıldızları oluştur (50 tane)
-  const starsContainer = document.querySelector('.stars');
-  for(let i=0; i<50; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    star.style.width = star.style.height = (Math.random()*2 + 1) + 'px';
-    star.style.top = Math.random()*100 + '%';
-    star.style.left = Math.random()*100 + '%';
-    star.style.animationDuration = (2 + Math.random()*3) + 's';
-    starsContainer.appendChild(star);
-  }
-
-  // Kalpleri oluştur (15 tane)
-  const heartsContainer = document.querySelector('.hearts');
-  for(let i=0; i<15; i++) {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.textContent = '❤️';
-    heart.style.left = (Math.random()*100) + '%';
-    heart.style.animationDelay = (i * 0.4) + 's';
-    heart.style.fontSize = (12 + Math.random()*12) + 'px';
-    heartsContainer.appendChild(heart);
-  }
-
-  // Sayaç için başlangıç tarihi (örneğin 3 ay önce)
-  // 3 ay = 90 gün varsayalım
-  const startDate = new Date();
-  startDate.setMonth(startDate.getMonth() - 3);
-
-  // Şu anki zaman
-  const now = new Date();
-
-  // 6 ay sonrası hedef
-  const endDate = new Date(startDate);
-  endDate.setMonth(endDate.getMonth() + 6);
-
-  function updateCountdown() {
-    const now = new Date();
-
-    // Geçen zaman
-    const diff = now - startDate;
-    const diffSeconds = Math.floor(diff / 1000);
-
-    // Gün, saat, dakika, saniye
-    const days = Math.floor(diffSeconds / (3600 * 24));
-    const hours = Math.floor((diffSeconds % (3600 * 24)) / 3600);
-    const minutes = Math.floor((diffSeconds % 3600) / 60);
-    const seconds = diffSeconds % 60;
-
-    const countdown = document.getElementById('countdown');
-    countdown.textContent = `Gün sayacı: ${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye`;
-
-    // İlerleme yüzdesi 6 aylık hedefe göre
-    const totalDuration = endDate - startDate;
-    const progress = Math.min(((now - startDate) / totalDuration) * 100, 100);
-    const progressBar = document.getElementById('progress-bar');
-    progressBar.style.width = progress.toFixed(2) + '%';
-    progressBar.textContent = Math.floor(progress) + '%';
-
-    // progressbar aria-valuenow güncelle
-    const progressContainer = document.querySelector('.progress-container');
-    progressContainer.setAttribute('aria-valuenow', Math.floor(progress));
-  }
-
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
-
-  // Sürpriz video butonuna basılınca alert ya da video açabilirsin
-  document.getElementById('surpriseBtn').addEventListener('click', () => {
-    alert('Sürpriz videoya yönlendiriliyorsun!'); 
-    // İstersen buraya video açma kodu ekleyebilirim
-  });
-</script>
-
+    setInterval(updateCounter, 1000);
+  </script>
 </body>
 </html>
