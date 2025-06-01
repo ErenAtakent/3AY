@@ -25,7 +25,6 @@
     flex-direction: column;
   }
 
-  /* Üst başlık alanı */
   header {
     width: 100%;
     max-width: 450px;
@@ -53,7 +52,6 @@
     text-shadow: 0 0 8px #ff5c79;
   }
 
-  /* Yıldız ve ay simgesi üstte */
   header .stars-emoji {
     font-size: 2.5rem;
     margin-top: 10px;
@@ -166,10 +164,9 @@
     border-radius: 8px;
   }
 
-  /* Hearts falling animation üstte */
   .hearts {
     position: fixed;
-    top: 50px;  /* Üstte, başlıktan hemen sonra */
+    top: 70px;  /* Başlığın hemen altında */
     left: 50%;
     width: 100%;
     height: 150px;
@@ -199,9 +196,6 @@
     }
   }
 
-  /* Romantic scrolling text - kaldırdım çünkü istemedin */
-
-  /* Responsive adjustments */
   @media (max-width: 480px) {
     .container {
       padding: 25px 20px;
@@ -242,9 +236,7 @@
   <div class="message">Hiç hayatımdan çıkma minik sevgilim - seni çok seviyorum ❤️</div>
 </header>
 
-<div class="hearts" aria-hidden="true">
-  <!-- Kalpler JavaScript ile oluşturulacak -->
-</div>
+<div class="hearts" aria-hidden="true"></div>
 
 <div class="container" role="main" aria-label="3. Ayımız Kutlu Olsun">
   <h1>3. Ayımız Kutlu Olsun 🤍</h1>
@@ -292,5 +284,55 @@
     heartsContainer.appendChild(heart);
   }
 
-  // Sayaç fonksiyonu
-  // Başlangıç tarihini ayarlıyoruz: 3
+  // Sayaç için başlangıç tarihi (örneğin 3 ay önce)
+  // 3 ay = 90 gün varsayalım
+  const startDate = new Date();
+  startDate.setMonth(startDate.getMonth() - 3);
+
+  // Şu anki zaman
+  const now = new Date();
+
+  // 6 ay sonrası hedef
+  const endDate = new Date(startDate);
+  endDate.setMonth(endDate.getMonth() + 6);
+
+  function updateCountdown() {
+    const now = new Date();
+
+    // Geçen zaman
+    const diff = now - startDate;
+    const diffSeconds = Math.floor(diff / 1000);
+
+    // Gün, saat, dakika, saniye
+    const days = Math.floor(diffSeconds / (3600 * 24));
+    const hours = Math.floor((diffSeconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((diffSeconds % 3600) / 60);
+    const seconds = diffSeconds % 60;
+
+    const countdown = document.getElementById('countdown');
+    countdown.textContent = `Gün sayacı: ${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye`;
+
+    // İlerleme yüzdesi 6 aylık hedefe göre
+    const totalDuration = endDate - startDate;
+    const progress = Math.min(((now - startDate) / totalDuration) * 100, 100);
+    const progressBar = document.getElementById('progress-bar');
+    progressBar.style.width = progress.toFixed(2) + '%';
+    progressBar.textContent = Math.floor(progress) + '%';
+
+    // progressbar aria-valuenow güncelle
+    const progressContainer = document.querySelector('.progress-container');
+    progressContainer.setAttribute('aria-valuenow', Math.floor(progress));
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Sürpriz video butonuna basılınca alert ya da video açabilirsin
+  document.getElementById('surpriseBtn').addEventListener('click', () => {
+    alert('Sürpriz videoya yönlendiriliyorsun!'); 
+    // İstersen buraya video açma kodu ekleyebilirim
+  });
+</script>
+
+</body>
+</html>
